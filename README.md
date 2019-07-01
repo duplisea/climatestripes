@@ -1,11 +1,11 @@
 ### What are Climate Stripes?
 
 Climate stripes are visualisations of climate change from a temperature
-time series (Reference). They are meant mostly as a communication tool
-to a lay public and can be grasped almost instantly. They were developed
-to have minimal annotation almost like a colour bar code. Legend and
-time axis options have been included here if one wants to convey a bit
-more information.
+time series (Cliamte Lab 2018). They are meant mostly as a communication
+tool to a lay public and can be grasped almost instantly. They were
+developed to have minimal annotation almost like a colour bar code.
+Legend and time axis options have been included here if one wants to
+convey a bit more information.
 
 Installation
 ------------
@@ -74,6 +74,7 @@ temperature each month.
 References
 ==========
 
+Climate Lab. 2018.
 <a href="https://www.climate-lab-book.ac.uk/2018/warming-stripes/" class="uri">https://www.climate-lab-book.ac.uk/2018/warming-stripes/</a>
 
 GISTEMP Team, 2019: GISS Surface Temperature Analysis (GISTEMP), version

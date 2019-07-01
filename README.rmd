@@ -1,6 +1,6 @@
 ---
 title: "An R package to make climate stripe plots"
-output: md_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ### What are Climate Stripes?
-Climate stripes are visualisations of climate change from a temperature time series (Reference). They are meant mostly as a communication tool to a lay public and can be grasped almost instantly. They were developed to have minimal annotation almost like a colour bar code. Legend and time axis options have been included here if one wants to convey a bit more information.
+Climate stripes are visualisations of climate change from a temperature time series (Cliamte Lab 2018). They are meant mostly as a communication tool to a lay public and can be grasped almost instantly. They were developed to have minimal annotation almost like a colour bar code. Legend and time axis options have been included here if one wants to convey a bit more information.
 
 
 ## Installation
@@ -69,7 +69,7 @@ The axis has been omitted to bring out the general pattern and comparison betwee
 
 # References
 
-https://www.climate-lab-book.ac.uk/2018/warming-stripes/
+Climate Lab. 2018. https://www.climate-lab-book.ac.uk/2018/warming-stripes/
 
 GISTEMP Team, 2019: GISS Surface Temperature Analysis (GISTEMP), version 4. NASA Goddard Institute for Space Studies. Dataset accessed 2019-06-20 at https://data.giss.nasa.gov/gistemp/.
 
