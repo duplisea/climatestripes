@@ -1,7 +1,7 @@
 ### What are Climate Stripes?
 
 Climate stripes are visualisations of climate change from a temperature
-time series (Cliamte Lab 2018). They are meant mostly as a communication
+time series (Climate Lab 2018). They are meant mostly as a communication
 tool to a lay public and can be grasped almost instantly. They were
 developed to have minimal annotation almost like a colour bar code.
 Legend and time axis options have been included here if one wants to
@@ -44,6 +44,7 @@ Make a climate stripe plot for just one month from the GISS dataset
 -------------------------------------------------------------------
 
     temperature.vector= stmargaretsbay$SEP
+    temperature.vector[temperature.vector==999.9]=NA
     time.vector= stmargaretsbay$YEAR
     climate.col.stripes.f(time.vector= time.vector,temperature.vector= temperature.vector,
       col1="blue", col2="red",
@@ -62,6 +63,7 @@ An annual climate stripe image with one plot for each month of the year
     par(mfcol=c(6,2),mar=c(.2,.1,.5,.1))
     for (i in monthcols){
       temperature.vector= stmargaretsbay[,i]
+      temperature.vector[temperature.vector==999.9]=NA
       climate.col.stripes.f(time.vector= time.vector,temperature.vector, title=months[i-1], time.scale=F,legend.text.col="white")
     }
 

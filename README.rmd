@@ -1,6 +1,6 @@
 ---
 title: "An R package to make climate stripe plots"
-output: html_document
+output: md_document
 ---
 
 ```{r setup, include=FALSE}
@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ### What are Climate Stripes?
-Climate stripes are visualisations of climate change from a temperature time series (Cliamte Lab 2018). They are meant mostly as a communication tool to a lay public and can be grasped almost instantly. They were developed to have minimal annotation almost like a colour bar code. Legend and time axis options have been included here if one wants to convey a bit more information.
+Climate stripes are visualisations of climate change from a temperature time series (Climate Lab 2018). They are meant mostly as a communication tool to a lay public and can be grasped almost instantly. They were developed to have minimal annotation almost like a colour bar code. Legend and time axis options have been included here if one wants to convey a bit more information.
 
 
 ## Installation
@@ -44,6 +44,7 @@ This clearly shows a warming particularly since the early 1980s. There is a cool
 
 ```{r septemberplot}
 temperature.vector= stmargaretsbay$SEP
+temperature.vector[temperature.vector==999.9]=NA
 time.vector= stmargaretsbay$YEAR
 climate.col.stripes.f(time.vector= time.vector,temperature.vector= temperature.vector,
   col1="blue", col2="red",
@@ -61,6 +62,7 @@ time.vector= stmargaretsbay$YEAR
 par(mfcol=c(6,2),mar=c(.2,.1,.5,.1))
 for (i in monthcols){
   temperature.vector= stmargaretsbay[,i]
+  temperature.vector[temperature.vector==999.9]=NA
   climate.col.stripes.f(time.vector= time.vector,temperature.vector, title=months[i-1], time.scale=F,legend.text.col="white")
 }
 ```
