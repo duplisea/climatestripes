@@ -4,9 +4,9 @@
 \alias{colour.gradient.legend.f}
 \title{Draws a gradient legend for a climate stripes plot}
 \usage{
-colour.gradient.legend.f(xleft, ybottom, xright, ytop, col1 = "blue",
-  col2 = "red", ncolours = 500, labels = T, var.min.label,
-  var.max.label, legend.text.col)
+colour.gradient.legend.f(xleft, ybottom, xright, ytop,
+  colour.vec = c("blue", "red"), ncolours = 500, labels = T,
+  var.min.label, var.max.label, legend.text.col)
 }
 \arguments{
 \item{xleft}{the lower left x coordinate of the legend}
@@ -17,9 +17,7 @@ colour.gradient.legend.f(xleft, ybottom, xright, ytop, col1 = "blue",
 
 \item{ytop}{the upper right y coordinate of the legend}
 
-\item{col1}{the colour for the lowest value of the temperature vector}
-
-\item{col2}{the colour for the highest value of the temperature vector. A gradient between col1 and col2 is drawn for the other colours}
+\item{colour.vec}{a vector of colours to ramp between (see colorRampPalette, "colors")}
 
 \item{ncolours}{the number of colours to show on the legend. Default is 500, a large number produces a smooth legend colour gradient}
 

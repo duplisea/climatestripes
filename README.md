@@ -27,10 +27,10 @@ Scotia, Canada to use as an example.
     time.vector= stmargaretsbay$YEAR
 
     climate.col.stripes.f(time.vector= time.vector,temperature.vector= temperature.vector,
-      col1="blue", col2="red",
+      colour.vec=c("navyblue", "red"),
       title="Annual Average Temperature - St Margaret's Bay, NS, Canada",
       legend=T,
-      legend.text.col="white")
+      legend.text.col="yellow")
 
 ![](README_files/figure-markdown_strict/annualplot-1.png)
 
@@ -40,6 +40,38 @@ increases in the second decade of the 2000s which includes the warmest
 years on record. The legend shows that the warmest year was 8.6 °C while
 the coldest was 4.1 °C. Years without data are shown without colour.
 
+This is not exactly the same as climate lab’s plots who use a three
+colour gradient and they do not seem to use datasets with missing values
+or perhaps their missing data are colour coded with the average (white).
+The climate lab climate stripes also tend to work on anomalies in which
+case a three colour gradient makes a lot of sense.
+
+<img src="README_files/figure-markdown_strict/uk-stripes-1.png" style="width:60.0%" />
+
+From
+<a href="https://www.climate-lab-book.ac.uk/2018/climate-stripes-for-the-uk/" class="uri">https://www.climate-lab-book.ac.uk/2018/climate-stripes-for-the-uk/</a>
+
+You can make colour stripes plot closer to the look of those developed
+by climate lab using a multicolour gradient. In the one below, “white”
+was added as the middle colour and different points along the gradients
+were marked with particular colours. Experiment with different gradients
+and you may find something that works better for you. You could add as
+many colours as years even.
+
+    climate.col.stripes.f(time.vector= time.vector,temperature.vector= temperature.vector,
+      colour.vec=c("navyblue","lightblue","white","red","darkred"),
+      title="Annual Average Temperature - St Margaret's Bay, NS, Canada",
+      legend=T,
+      legend.text.col="yellow")
+
+![](README_files/figure-markdown_strict/climatelabplot-1.png)
+
+This missing data in the 2012 period now look like average data though
+so it is deceptive. I personally prefer the two colour gradient on
+absolutes and not anomalies with missing data coded white. I think it is
+the most intuitive since anomalies are more difficult to explain to the
+lay public and it is easy to show missing data points.
+
 Make a climate stripe plot for just one month from the GISS dataset
 -------------------------------------------------------------------
 
@@ -47,7 +79,7 @@ Make a climate stripe plot for just one month from the GISS dataset
     temperature.vector[temperature.vector==999.9]=NA
     time.vector= stmargaretsbay$YEAR
     climate.col.stripes.f(time.vector= time.vector,temperature.vector= temperature.vector,
-      col1="blue", col2="red",
+      colour.vec=c("navyblue", "red"),
       title="September Average Temperature - St Margaret's Bay, NS, Canada",
       legend=T,
       legend.text.col="white")
@@ -64,7 +96,7 @@ An annual climate stripe image with one plot for each month of the year
     for (i in monthcols){
       temperature.vector= stmargaretsbay[,i]
       temperature.vector[temperature.vector==999.9]=NA
-      climate.col.stripes.f(time.vector= time.vector,temperature.vector, title=months[i-1], time.scale=F,legend.text.col="white")
+      climate.col.stripes.f(time.vector= time.vector,temperature.vector, colour.vec=c("navyblue","red"),title=months[i-1], time.scale=F)
     }
 
 ![](README_files/figure-markdown_strict/allmonthplot-1.png)
@@ -79,12 +111,11 @@ References
 Climate Lab. 2018.
 <a href="https://www.climate-lab-book.ac.uk/2018/warming-stripes/" class="uri">https://www.climate-lab-book.ac.uk/2018/warming-stripes/</a>
 
+Enfield, D.B., A.M. Mestas-Nunez, and P.J. Trimble, 2001: The Atlantic
+Multidecadal Oscillation and its relationship to rainfall and river
+flows in the continental U.S., Geophys. Res. Lett., 28: 2077-2080.
+
 GISTEMP Team, 2019: GISS Surface Temperature Analysis (GISTEMP), version
 4. NASA Goddard Institute for Space Studies. Dataset accessed 2019-06-20
 at
 <a href="https://data.giss.nasa.gov/gistemp/" class="uri">https://data.giss.nasa.gov/gistemp/</a>.
-
-Lenssen, N., G. Schmidt, J. Hansen, M. Menne,A. Persin,R. Ruedy, and D.
-Zyss, 2019: Improvements in the GISTEMP uncertainty model. J. Geophys.
-Res. Atmos.
-<a href="doi:10.1029/2018JD029522" class="uri">doi:10.1029/2018JD029522</a>.

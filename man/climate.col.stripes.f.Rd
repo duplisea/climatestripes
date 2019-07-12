@@ -4,18 +4,16 @@
 \alias{climate.col.stripes.f}
 \title{Draws climate stripes given a time vector and environmental (usually temperature) vector}
 \usage{
-climate.col.stripes.f(time.vector, temperature.vector, col1 = "blue",
-  col2 = "red", title = "", time.scale = T, legend = T,
-  legend.text.col, ...)
+climate.col.stripes.f(time.vector, temperature.vector,
+  colour.vec = c("blue", "red"), title = "", time.scale = T,
+  legend = T, legend.text.col = "yellow", na.colour = "white", ...)
 }
 \arguments{
 \item{time.vector}{the time series vector}
 
 \item{temperature.vector}{a times series of any environmental variable (climate stripes have been developed for temperature) whose values correspond to the time vector}
 
-\item{col1}{the colour for the lowest values of the temperature vector}
-
-\item{col2}{the colour for the highest values of the temperature vector. A gradient between col1 and col2 is drawn for the other colours}
+\item{colour.vec}{a vector of colours to ramp between (see colorRampPalette, "colors")}
 
 \item{title}{a title for the colour stripes plot if you want one}
 
@@ -24,6 +22,8 @@ climate.col.stripes.f(time.vector, temperature.vector, col1 = "blue",
 \item{legend}{puts a legend for the colour gradient on the top right of the plot with the lowest and highest values shown. Default TRUE}
 
 \item{legend.text.col}{colour of the legend text}
+
+\item{na.colour}{colour to display for na in the time series}
 
 \item{...}{additional arguments that plot will accept, see par}
 }
