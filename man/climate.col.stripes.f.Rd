@@ -6,7 +6,7 @@
 \usage{
 climate.col.stripes.f(time.vector, temperature.vector,
   colour.vec = c("blue", "red"), title = "", time.scale = T,
-  legend = T, legend.text.col = "yellow", na.colour = "white", ...)
+  legend = T, text.col.legend = "yellow", na.colour = "white", ...)
 }
 \arguments{
 \item{time.vector}{the time series vector}
@@ -21,7 +21,7 @@ climate.col.stripes.f(time.vector, temperature.vector,
 
 \item{legend}{puts a legend for the colour gradient on the top right of the plot with the lowest and highest values shown. Default TRUE}
 
-\item{legend.text.col}{colour of the legend text}
+\item{text.col.legend}{colour of the legend text}
 
 \item{na.colour}{colour to display for na in the time series}
 

@@ -15,76 +15,70 @@ Installation
 
     library(climatestripes)
 
-Make climate stripe plots for data downloaded from NASA’s GISS Surface Temperature Analysis
--------------------------------------------------------------------------------------------
+Make climate stripe plots for the Hadley CRUT4 sea surface temperature
+----------------------------------------------------------------------
 
-Suface air temperature data was downloaded for St Margaret’s Bay, Nova
-Scotia, Canada to use as an example.
+    time.vector= sst$year
+    temperature.vector= sst$median
+    title.name= "Global annual median sea surface temperature anomalies (Hadley CRUT4)"
 
-    temperature.vector= stmargaretsbay$metANN
-    # set the missing value code (999.9) to NA
-    temperature.vector[temperature.vector==999.9]=NA
-    time.vector= stmargaretsbay$YEAR
-
-    climate.col.stripes.f(time.vector= time.vector,temperature.vector= temperature.vector,
-      colour.vec=c("navyblue", "red"),
-      title="Annual Average Temperature - St Margaret's Bay, NS, Canada",
+    climate.col.stripes.f(time.vector= time.vector,temperature.vector=temperature.vector,
+      colour.vec=c("navyblue","lightblue", "red","darkred"),
+      title=title.name,
       legend=T,
-      legend.text.col="yellow")
+      text.col.legend="yellow")
 
 ![](README_files/figure-markdown_strict/annualplot-1.png)
 
-This clearly shows a warming particularly since the early 1980s. There
-is a cooling from the mid 1990s to early 2000s and then the temperature
-increases in the second decade of the 2000s which includes the warmest
-years on record. The legend shows that the warmest year was 8.6 °C while
-the coldest was 4.1 °C. Years without data are shown without colour.
+This clearly shows a warming particularly since the early 1980s.
 
-This is not exactly the same as climate lab’s plots who use a three
-colour gradient and they do not seem to use datasets with missing values
-or perhaps their missing data are colour coded with the average (white).
-The climate lab climate stripes also tend to work on anomalies in which
-case a three colour gradient makes a lot of sense.
-
+This is quite similar to the climate lab’s three colour gradient but
+they also tend to put white for average data.
 <img src="README_files/figure-markdown_strict/uk-stripes-1.png" style="width:60.0%" />
 
 From
 <a href="https://www.climate-lab-book.ac.uk/2018/climate-stripes-for-the-uk/" class="uri">https://www.climate-lab-book.ac.uk/2018/climate-stripes-for-the-uk/</a>
 
-You can make colour stripes plot closer to the look of those developed
-by climate lab using a multicolour gradient. In the one below, “white”
-was added as the middle colour and different points along the gradients
-were marked with particular colours. Experiment with different gradients
-and you may find something that works better for you. You could add as
-many colours as years even.
+You may want to code missing data as white though in which case that
+could be deceptive take this plot from St Margaret’s Bay, NS, Canada for
+example. There are missing data around 2012 which are coded white. In
+the one below, “white” was added as the middle colour and different
+points along the gradients were marked with particular colours and this
+gives the light blues of the Climate Lab climate stripes. Experiment
+with different gradients and you may find something that works better
+for you. You could add as many colours as years even.
 
     climate.col.stripes.f(time.vector= time.vector,temperature.vector= temperature.vector,
       colour.vec=c("navyblue","lightblue","white","red","darkred"),
-      title="Annual Average Temperature - St Margaret's Bay, NS, Canada",
+      title=title.name,
       legend=T,
-      legend.text.col="yellow")
+      text.col.legend="yellow")
 
 ![](README_files/figure-markdown_strict/climatelabplot-1.png)
 
-This missing data in the 2012 period now look like average data though
-so it is deceptive. I personally prefer the two colour gradient on
-absolutes and not anomalies with missing data coded white. I think it is
-the most intuitive since anomalies are more difficult to explain to the
-lay public and it is easy to show missing data points.
+Make a climate stripe plot with data and a trendline superimposed
+-----------------------------------------------------------------
 
-Make a climate stripe plot for just one month from the GISS dataset
--------------------------------------------------------------------
+It can be interesting to plot anomalies without a legend scale and
+superimpose the data and trendline on it. This conveys more information
+which can appeal to scientists without loosing the appeal of climate
+stripes plots to the lay public. One has been constructed here that
+looks like the climate lab climate stripes plots with data and gam
+trendline superimposed.
 
-    temperature.vector= stmargaretsbay$SEP
-    temperature.vector[temperature.vector==999.9]=NA
-    time.vector= stmargaretsbay$YEAR
-    climate.col.stripes.f(time.vector= time.vector,temperature.vector= temperature.vector,
-      colour.vec=c("navyblue", "red"),
-      title="September Average Temperature - St Margaret's Bay, NS, Canada",
-      legend=T,
-      legend.text.col="white")
+    time.vector= sst$year
+    temperature.vector= sst$median
+    title.name= "Global annual median sea surface temperature anomalies (Hadley CRUT4)"
 
-![](README_files/figure-markdown_strict/septemberplot-1.png)
+    climate.col.stripes.f(time.vector= time.vector,temperature.vector=temperature.vector,
+      colour.vec=c("navyblue","lightblue", "red","darkred"),
+      title=title.name,
+      legend=F,
+      text.col.legend="yellow")
+
+    superimpose.data.f(time.vector=time.vector, temperature.vector=temperature.vector, data.colour="yellow", spline=T, spline.colour="white",lwd=4)
+
+![](README_files/figure-markdown_strict/superimposedplot-1.png)
 
 An annual climate stripe image with one plot for each month of the year
 -----------------------------------------------------------------------
@@ -96,7 +90,7 @@ An annual climate stripe image with one plot for each month of the year
     for (i in monthcols){
       temperature.vector= stmargaretsbay[,i]
       temperature.vector[temperature.vector==999.9]=NA
-      climate.col.stripes.f(time.vector= time.vector,temperature.vector, colour.vec=c("navyblue","red"),title=months[i-1], time.scale=F)
+      climate.col.stripes.f(time.vector= time.vector,temperature.vector, colour.vec=c("navyblue","lightblue","red"),title=months[i-1], time.scale=F)
     }
 
 ![](README_files/figure-markdown_strict/allmonthplot-1.png)
@@ -119,3 +113,9 @@ GISTEMP Team, 2019: GISS Surface Temperature Analysis (GISTEMP), version
 4. NASA Goddard Institute for Space Studies. Dataset accessed 2019-06-20
 at
 <a href="https://data.giss.nasa.gov/gistemp/" class="uri">https://data.giss.nasa.gov/gistemp/</a>.
+
+Morice, C. P., J. J. Kennedy, N. A. Rayner, and P. D. Jones. 2011.
+Quantifying uncertainties in global and regional temperature change
+using an ensemble of observational estimates: The HadCRUT4 dataset, J.
+Geophys. Res., 117, D08101,
+<a href="doi:10.1029/2011JD017187" class="uri">doi:10.1029/2011JD017187</a>.

@@ -2,3 +2,4 @@
 
 export(climate.col.stripes.f)
 export(colour.gradient.legend.f)
+export(superimpose.data.f)

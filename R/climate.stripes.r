@@ -9,13 +9,13 @@
 #' @param labels default TRUE. If TRUE then values you supply (var.min.label) and (var.max.label) are shown on the legend
 #' @param var.min.label the val.ue for the highest temperature to show on the legend
 #' @param var.max.label the value for the lowest temperature to show on the legend
-#' @param legend.text.col colour of the legend text
+#' @param text.col.legend colour of the legend text
 #' @description This draws a colour gradient legend for use as a climate stripes legend. It uses rect to draw many rectangles (500) and colours
 #'       each with a ramp palette so that it appears as a smooth gradient. It is also possible to do this as a rasterImage but these images
 #'       can be hard to work with and do not scale properly especially for multiplot layouts.
 #' @seealso rect colorRampPalette
 #' @export
-colour.gradient.legend.f= function(xleft,ybottom,xright,ytop,colour.vec=c("blue","red"),ncolours=500,labels=T,var.min.label,var.max.label, legend.text.col){
+colour.gradient.legend.f= function(xleft,ybottom,xright,ytop,colour.vec=c("blue","red"),ncolours=500,labels=T,var.min.label,var.max.label, text.col.legend){
   tempcol=colorRampPalette(colors=colour.vec)(ncolours)
   xlefts= rep(xleft,length=ncolours)
   xrights= rep(xright,length=ncolours)
@@ -25,8 +25,8 @@ colour.gradient.legend.f= function(xleft,ybottom,xright,ytop,colour.vec=c("blue"
     rect(xlefts[i],ybottoms[i],xrights[i],ytops[i],col=tempcol[i],border=NA)
   }
   if (labels){
-    text((x=xleft+xright)/2, y=ybottom, var.min.label,adj=c(0.5,0),col=legend.text.col,font=2,cex=0.8)
-    text((x=xleft+xright)/2, y=ytop, var.max.label,adj=c(0.5,1),col=legend.text.col,font=2,cex=0.8)
+    text((x=xleft+xright)/2, y=ybottom, var.min.label,adj=c(0.5,0),col=text.col.legend,font=2,cex=0.8)
+    text((x=xleft+xright)/2, y=ytop, var.max.label,adj=c(0.5,1),col=text.col.legend,font=2,cex=0.8)
   }
 }
 
@@ -38,7 +38,7 @@ colour.gradient.legend.f= function(xleft,ybottom,xright,ytop,colour.vec=c("blue"
 #' @param title a title for the colour stripes plot if you want one
 #' @param time.scale show a temporal axis. Default TRUE
 #' @param legend puts a legend for the colour gradient on the top right of the plot with the lowest and highest values shown. Default TRUE
-#' @param legend.text.col colour of the legend text
+#' @param text.col.legend colour of the legend text
 #' @param na.colour colour to display for na in the time series
 #' @param ... additional arguments that plot will accept, see par
 #' @description Climate stripes are a simple way of showing how temperature (or any other time series) has changed over time. They are usually
@@ -56,26 +56,30 @@ colour.gradient.legend.f= function(xleft,ybottom,xright,ytop,colour.vec=c("blue"
 #' @references
 #'       https://www.climate-lab-book.ac.uk/2018/warming-stripes/
 #' @export
-climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("blue","red"), title="", time.scale=T, legend=T, legend.text.col="yellow", na.colour="white", ...){
+climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("blue","red"), title="", time.scale=T, legend=T, text.col.legend="yellow", na.colour="white", ...){
 
-  temperature.vector= temperature.vector[-length(temperature.vector)]
+  #temperature.vector= temperature.vector[-length(temperature.vector)]
+  #time.start= time.vector[-length(time.vector)]
+  #time.end= time.vector[-1]
 
-  time.start= time.vector[-length(time.vector)]
-  time.end= time.vector[-1]
+  time.start= time.vector
+  time.end= c(time.vector[-1],time.vector[length(time.vector)]+1)
 
-    # dummy variables ot setup the plotting space
+  # dummy variables ot setup the plotting space
   x.dummy= c(time.vector[1], time.vector[length(time.vector)]+length(time.vector)*0.04)
   y.dummy= c(0,1)
   #par(mar=c(2,0.5,2,5))
   plot(x.dummy,y.dummy,axes=F,xlab="",ylab="",,type="n", ...)
 
-    #colours need to be assigned to temperature in rank orde of temperature
-  temperature.order= order(temperature.vector)
-  tempcol=colorRampPalette(colors=colour.vec)(length(temperature.vector))[temperature.order]
-    # NA years are assigned the colour "white" or whatever you want
+  # bin the y variable and assign a colour to bins according to the bin values
+  bins= hist(temperature.vector,breaks=15,plot=F)
+  bin.vals= as.numeric(cut(temperature.vector, bins$breaks))
+  cols=colorRampPalette(colors= colour.vec)(length(bins$breaks))
+  tempcol= cols[as.numeric(bin.vals)]
+  # NA years are assigned a colour of your choosing (function argument)
   tempcol[is.na(temperature.vector)]= na.colour
-
-  rect(time.start,0,time.end,1,col=tempcol)
+  chosencols<<-tempcol
+  rect(time.start,0,time.end,1,col=tempcol,border=NA)
   if(time.scale) axis(1,at=time.vector,tick=F,line=-1)
   title(title,cex.main=.8)
 
@@ -86,13 +90,32 @@ climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("bl
       ytop=1,
       var.min.label=round(min(temperature.vector,na.rm=T),1),
       var.max.label=round(max(temperature.vector,na.rm=T),1),
-      colour.vec=colour.vec,labels=T,legend.text.col=legend.text.col)
+      colour.vec=colour.vec,labels=T,text.col.legend=text.col.legend)
   }
 }
 
 
-# do a global plot bare
-# do a global plot with axis, legend, title
-# do a local plot all dressed
-# do a global multiplot by month, no legend
-# find a way to automatically access a lot of datasets
+#' Superimpose the data series and a smooth gam (spline) trend line on the climate stripe plot
+#'
+#' @param time.vector the time series vector
+#' @param temperature.vector a times series of any environmental variable (climate stripes have been developed for temperature) whose values correspond to the time vector
+#' @param data.colour colour of the data line to superimpose
+#' @param spline fit a spline (gam) and superimpose in addition to the data
+#' @param spline.colour colour of the spline line to superimpose
+#' @param ... additional arguments to the trend line that "lines" will accept, see par
+#' @description Superimpose data and a gam smooth (spline) on the climate stripes plot. It can be visually more striking and can be more science friendly while still conveying the main colour temperature message of the climate stripes plot
+#' @details Superimposes data after rescaling from 0 to 1, i.e. the lowest point in the series will be at the bottom of the graph and the highest at the top. The
+#'       gam is calculated using mgcv default for gam
+#' @seealso lines par mgcv::gam smooth.spline
+#' @export
+superimpose.data.f= function(time.vector, temperature.vector, data.colour="yellow", spline=T,
+  spline.colour="white", ...){
+  y.data= rescale(temperature.vector,c(0,1))
+  time.mid=time.vector+0.5
+  lines(time.mid, y.data, col=data.colour,lwd=2)
+  if (spline){
+    gf= gam(y.data~ s(time.mid))
+    newdata= data.frame(time.mid=seq(min(time.mid),max(time.mid),length=length(time.mid)*10))
+    lines(newdata$time.mid,predict(gf, newdata=newdata), col=spline.colour, ...)
+  }
+}

@@ -6,7 +6,7 @@
 \usage{
 colour.gradient.legend.f(xleft, ybottom, xright, ytop,
   colour.vec = c("blue", "red"), ncolours = 500, labels = T,
-  var.min.label, var.max.label, legend.text.col)
+  var.min.label, var.max.label, text.col.legend)
 }
 \arguments{
 \item{xleft}{the lower left x coordinate of the legend}
@@ -27,7 +27,7 @@ colour.gradient.legend.f(xleft, ybottom, xright, ytop,
 
 \item{var.max.label}{the value for the lowest temperature to show on the legend}
 
-\item{legend.text.col}{colour of the legend text}
+\item{text.col.legend}{colour of the legend text}
 }
 \description{
 This draws a colour gradient legend for use as a climate stripes legend. It uses rect to draw many rectangles (500) and colours
