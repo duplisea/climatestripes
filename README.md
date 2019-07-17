@@ -52,7 +52,7 @@ could add as many colours as years even.
     temperature.vector[temperature.vector==999.9]=NA
     climate.col.stripes.f(time.vector= time.vector,temperature.vector= temperature.vector,
       colour.vec=c("navyblue","lightblue","white","red","darkred"),
-      title=title.name,
+      title="St Margaret's Bay, NS, Canada surface temperature annual mean (NASA GISS)",
       legend=T,
       text.col.legend="yellow")
 
