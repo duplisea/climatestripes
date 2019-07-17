@@ -41,13 +41,15 @@ From
 
 You may want to code missing data as white though in which case that
 could be deceptive take this plot from St Margaret’s Bay, NS, Canada for
-example. There are missing data around 2012 which are coded white. In
-the one below, “white” was added as the middle colour and different
-points along the gradients were marked with particular colours and this
-gives the light blues of the Climate Lab climate stripes. Experiment
-with different gradients and you may find something that works better
-for you. You could add as many colours as years even.
+example. There are missing data around 2012 which are coded white and
+they may appear as average at quick glance. Of course you could use
+another distinctive colour for missing data. Experiment with different
+gradients and you may find something that works better for you. You
+could add as many colours as years even.
 
+    time.vector= stmargaretsbay$YEAR
+    temperature.vector= stmargaretsbay$metANN
+    temperature.vector[temperature.vector==999.9]=NA
     climate.col.stripes.f(time.vector= time.vector,temperature.vector= temperature.vector,
       colour.vec=c("navyblue","lightblue","white","red","darkred"),
       title=title.name,
