@@ -33,8 +33,8 @@ Make climate stripe plots for the Hadley CRUT4 sea surface temperature
 This clearly shows a warming particularly since the early 1980s.
 
 This is quite similar to the climate lab’s three colour gradient but
-they also tend to put white for average data.
-<img src="README_files/figure-markdown_strict/uk-stripes-1.png" style="width:60.0%" />
+their gradient theoretically makes average data white.
+<img src="README_files/figure-markdown_strict/uk-stripes-1.png" style="width:40.0%" />
 
 From
 <a href="https://www.climate-lab-book.ac.uk/2018/climate-stripes-for-the-uk/" class="uri">https://www.climate-lab-book.ac.uk/2018/climate-stripes-for-the-uk/</a>
@@ -121,3 +121,9 @@ Quantifying uncertainties in global and regional temperature change
 using an ensemble of observational estimates: The HadCRUT4 dataset, J.
 Geophys. Res., 117, D08101,
 <a href="doi:10.1029/2011JD017187" class="uri">doi:10.1029/2011JD017187</a>.
+
+Citation
+========
+
+Duplisea, D.E. 2019. An R package for making climate stripe plots.
+<a href="https://github.com/duplisea/climatestripes" class="uri">https://github.com/duplisea/climatestripes</a>

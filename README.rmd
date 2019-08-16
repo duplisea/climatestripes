@@ -38,8 +38,8 @@ climate.col.stripes.f(time.vector= time.vector,temperature.vector=temperature.ve
 
 This clearly shows a warming particularly since the early 1980s.
 
-This is quite similar to the climate lab's three colour gradient but they also tend to put white for average data. 
-![](README_files/figure-markdown_strict/uk-stripes-1.png){width=60%}
+This is quite similar to the climate lab's three colour gradient but their gradient theoretically makes average data white.
+![](README_files/figure-markdown_strict/uk-stripes-1.png){width=40%}
 
 From https://www.climate-lab-book.ac.uk/2018/climate-stripes-for-the-uk/
 
@@ -100,3 +100,7 @@ Enfield, D.B., A.M. Mestas-Nunez, and P.J. Trimble, 2001: The Atlantic Multideca
 GISTEMP Team, 2019: GISS Surface Temperature Analysis (GISTEMP), version 4. NASA Goddard Institute for Space Studies. Dataset accessed 2019-06-20 at https://data.giss.nasa.gov/gistemp/.
 
 Morice, C. P., J. J. Kennedy, N. A. Rayner, and P. D. Jones. 2011. Quantifying uncertainties in global and regional temperature change using an ensemble of observational estimates: The HadCRUT4 dataset, J. Geophys. Res., 117, D08101, doi:10.1029/2011JD017187.
+
+# Citation
+
+Duplisea, D.E. 2019. An R package for making climate stripe plots. https://github.com/duplisea/climatestripes
