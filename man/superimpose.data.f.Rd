@@ -4,8 +4,14 @@
 \alias{superimpose.data.f}
 \title{Superimpose the data series and a smooth gam (spline) trend line on the climate stripe plot}
 \usage{
-superimpose.data.f(time.vector, temperature.vector,
-  data.colour = "yellow", spline = T, spline.colour = "white", ...)
+superimpose.data.f(
+  time.vector,
+  temperature.vector,
+  data.colour = "yellow",
+  spline = T,
+  spline.colour = "white",
+  ...
+)
 }
 \arguments{
 \item{time.vector}{the time series vector}

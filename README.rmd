@@ -1,5 +1,5 @@
 ---
-title: "An R package to make climate stripe plots"
+title: "An R package to make climate stripes plots"
 output: md_document
 ---
 
@@ -33,7 +33,8 @@ climate.col.stripes.f(time.vector= time.vector,temperature.vector=temperature.ve
   colour.vec=c("navyblue","lightblue", "red","darkred"),
   title=title.name,
   legend=T,
-  text.col.legend="yellow")
+  text.col.legend="yellow", n.categories.legend=200)
+
 ```
 
 This clearly shows a warming particularly since the early 1980s.
@@ -91,15 +92,37 @@ for (i in monthcols){
 
 The axis has been omitted to bring out the general pattern and comparison between months. The legends give an idea of the actual temperature each month.
 
+
+You can pull the latest global surface temperature data directly from the NASA GISS website using the very powerful <b>fread</b> function from data.table and the correct URL
+```{r nasagistemp}
+GISTEMP= as.data.frame(fread("https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv", na.strings="***"))
+time.vector= GISTEMP$Year
+monthcols= 2:13
+months= names(GISTEMP)[monthcols]
+par(mfcol=c(6,2),mar=c(.2,.1,.5,.1))
+for (i in monthcols){
+  temperature.vector= GISTEMP[,i]
+  climate.col.stripes.f(time.vector= time.vector,temperature.vector,
+    colour.vec=c("navyblue","lightblue","red"),title=months[i-1], time.scale=F)
+  superimpose.data.f(time.vector=time.vector, temperature.vector=temperature.vector, 
+    data.colour="yellow", spline=T, spline.colour="white",lwd=2)
+}
+```
+
+
+
 # References
 
 Climate Lab. 2018. https://www.climate-lab-book.ac.uk/2018/warming-stripes/
 
 Enfield, D.B., A.M. Mestas-Nunez, and P.J. Trimble, 2001: The Atlantic Multidecadal Oscillation and its relationship to rainfall and river flows in the continental U.S., Geophys. Res. Lett., 28: 2077-2080.
 
+ESRL data from NOAA. https://www.esrl.noaa.gov/psd/gcos_wgsp/Timeseries/
+
 GISTEMP Team, 2019: GISS Surface Temperature Analysis (GISTEMP), version 4. NASA Goddard Institute for Space Studies. Dataset accessed 2019-06-20 at https://data.giss.nasa.gov/gistemp/.
 
 Morice, C. P., J. J. Kennedy, N. A. Rayner, and P. D. Jones. 2011. Quantifying uncertainties in global and regional temperature change using an ensemble of observational estimates: The HadCRUT4 dataset, J. Geophys. Res., 117, D08101, doi:10.1029/2011JD017187.
+
 
 # Citation
 

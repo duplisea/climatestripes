@@ -4,9 +4,18 @@
 \alias{colour.gradient.legend.f}
 \title{Draws a gradient legend for a climate stripes plot}
 \usage{
-colour.gradient.legend.f(xleft, ybottom, xright, ytop,
-  colour.vec = c("blue", "red"), ncolours = 500, labels = T,
-  var.min.label, var.max.label, text.col.legend)
+colour.gradient.legend.f(
+  xleft,
+  ybottom,
+  xright,
+  ytop,
+  colour.vec = c("blue", "red"),
+  ncolours = 500,
+  labels = T,
+  var.min.label,
+  var.max.label,
+  text.col.legend
+)
 }
 \arguments{
 \item{xleft}{the lower left x coordinate of the legend}
@@ -23,7 +32,7 @@ colour.gradient.legend.f(xleft, ybottom, xright, ytop,
 
 \item{labels}{default TRUE. If TRUE then values you supply (var.min.label) and (var.max.label) are shown on the legend}
 
-\item{var.min.label}{the val.ue for the highest temperature to show on the legend}
+\item{var.min.label}{the value for the highest temperature to show on the legend}
 
 \item{var.max.label}{the value for the lowest temperature to show on the legend}
 

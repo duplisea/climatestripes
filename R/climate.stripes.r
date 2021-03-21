@@ -7,7 +7,7 @@
 #' @param colour.vec a vector of colours to ramp between (see colorRampPalette, "colors")
 #' @param ncolours the number of colours to show on the legend. Default is 500, a large number produces a smooth legend colour gradient
 #' @param labels default TRUE. If TRUE then values you supply (var.min.label) and (var.max.label) are shown on the legend
-#' @param var.min.label the val.ue for the highest temperature to show on the legend
+#' @param var.min.label the value for the highest temperature to show on the legend
 #' @param var.max.label the value for the lowest temperature to show on the legend
 #' @param text.col.legend colour of the legend text
 #' @description This draws a colour gradient legend for use as a climate stripes legend. It uses rect to draw many rectangles (500) and colours
@@ -40,6 +40,7 @@ colour.gradient.legend.f= function(xleft,ybottom,xright,ytop,colour.vec=c("blue"
 #' @param legend puts a legend for the colour gradient on the top right of the plot with the lowest and highest values shown. Default TRUE
 #' @param text.col.legend colour of the legend text
 #' @param na.colour colour to display for na in the time series
+#' @param n.categories.legend the number of colour categories you want to show in the legend, default=500 (large numbers smooth it). Careful trying to make only a few discrete categories, you can get some peculiar looking legends.
 #' @param ... additional arguments that plot will accept, see par
 #' @description Climate stripes are a simple way of showing how temperature (or any other time series) has changed over time. They are usually
 #'       drawn for a temperature time series with blue being the coldest years and red being the warmest. They offer a relatively uncluttered
@@ -56,7 +57,7 @@ colour.gradient.legend.f= function(xleft,ybottom,xright,ytop,colour.vec=c("blue"
 #' @references
 #'       https://www.climate-lab-book.ac.uk/2018/warming-stripes/
 #' @export
-climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("blue","red"), title="", time.scale=T, legend=T, text.col.legend="yellow", na.colour="white", ...){
+climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("blue","red"), title="", time.scale=T, legend=T, text.col.legend="yellow", na.colour="white", n.categories.legend=500, ...){
 
   #temperature.vector= temperature.vector[-length(temperature.vector)]
   #time.start= time.vector[-length(time.vector)]
@@ -65,7 +66,7 @@ climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("bl
   time.start= time.vector
   time.end= c(time.vector[-1],time.vector[length(time.vector)]+1)
 
-  # dummy variables ot setup the plotting space
+  # dummy variables to setup the plotting space
   x.dummy= c(time.vector[1], time.vector[length(time.vector)]+length(time.vector)*0.04)
   y.dummy= c(0,1)
   #par(mar=c(2,0.5,2,5))
@@ -90,7 +91,8 @@ climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("bl
       ytop=1,
       var.min.label=round(min(temperature.vector,na.rm=T),1),
       var.max.label=round(max(temperature.vector,na.rm=T),1),
-      colour.vec=colour.vec,labels=T,text.col.legend=text.col.legend)
+      colour.vec=colour.vec,labels=T,text.col.legend=text.col.legend,
+      ncolours=n.categories.legend)
   }
 }
 

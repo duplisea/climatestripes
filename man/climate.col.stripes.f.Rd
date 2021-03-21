@@ -4,9 +4,18 @@
 \alias{climate.col.stripes.f}
 \title{Draws climate stripes given a time vector and environmental (usually temperature) vector}
 \usage{
-climate.col.stripes.f(time.vector, temperature.vector,
-  colour.vec = c("blue", "red"), title = "", time.scale = T,
-  legend = T, text.col.legend = "yellow", na.colour = "white", ...)
+climate.col.stripes.f(
+  time.vector,
+  temperature.vector,
+  colour.vec = c("blue", "red"),
+  title = "",
+  time.scale = T,
+  legend = T,
+  text.col.legend = "yellow",
+  na.colour = "white",
+  n.categories.legend = 500,
+  ...
+)
 }
 \arguments{
 \item{time.vector}{the time series vector}
@@ -24,6 +33,8 @@ climate.col.stripes.f(time.vector, temperature.vector,
 \item{text.col.legend}{colour of the legend text}
 
 \item{na.colour}{colour to display for na in the time series}
+
+\item{n.categories.legend}{the number of colour categories you want to show in the legend, default=500 (large numbers smooth it)}
 
 \item{...}{additional arguments that plot will accept, see par}
 }
