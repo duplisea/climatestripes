@@ -41,6 +41,7 @@ colour.gradient.legend.f= function(xleft,ybottom,xright,ytop,colour.vec=c("blue"
 #' @param text.col.legend colour of the legend text
 #' @param na.colour colour to display for na in the time series
 #' @param n.categories.legend the number of colour categories you want to show in the legend, default=500 (large numbers smooth it). Careful trying to make only a few discrete categories, you can get some peculiar looking legends.
+#' @param legend.xpos the left and right x coordinates of the legend bar (same units as your time axis)
 #' @param ... additional arguments that plot will accept, see par
 #' @description Climate stripes are a simple way of showing how temperature (or any other time series) has changed over time. They are usually
 #'       drawn for a temperature time series with blue being the coldest years and red being the warmest. They offer a relatively uncluttered
@@ -57,7 +58,7 @@ colour.gradient.legend.f= function(xleft,ybottom,xright,ytop,colour.vec=c("blue"
 #' @references
 #'       https://www.climate-lab-book.ac.uk/2018/warming-stripes/
 #' @export
-climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("blue","red"), title="", time.scale=T, legend=T, text.col.legend="yellow", na.colour="white", n.categories.legend=500, ...){
+climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("blue","red"), title="", time.scale=T, legend=T, text.col.legend="yellow", na.colour="white", n.categories.legend=500, legend.xpos=c(NA,NA), ...){
 
   #temperature.vector= temperature.vector[-length(temperature.vector)]
   #time.start= time.vector[-length(time.vector)]
@@ -84,7 +85,19 @@ climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("bl
   if(time.scale) axis(1,at=time.vector,tick=F,line=-1)
   title(title,cex.main=.8)
 
+  # put on a legend. If the x positions are not specified defaults are used. They may not be suitable in all cases
   if(legend){
+    if(any(!is.na(legend.xpos))){
+      colour.gradient.legend.f(xleft=legend.xpos[1],
+        ybottom=.5,
+        xright=legend.xpos[2],
+        ytop=1,
+        var.min.label=round(min(temperature.vector,na.rm=T),1),
+        var.max.label=round(max(temperature.vector,na.rm=T),1),
+        colour.vec=colour.vec,labels=T,text.col.legend=text.col.legend,
+        ncolours=n.categories.legend)
+    }
+    if(any(is.na(legend.xpos))){
     colour.gradient.legend.f(xleft=max(time.vector)+length(time.vector)*0.02,
       ybottom=.5,
       xright=max(time.vector)+length(time.vector)*0.07,
@@ -93,6 +106,7 @@ climate.col.stripes.f= function(time.vector,temperature.vector, colour.vec=c("bl
       var.max.label=round(max(temperature.vector,na.rm=T),1),
       colour.vec=colour.vec,labels=T,text.col.legend=text.col.legend,
       ncolours=n.categories.legend)
+    }
   }
 }
 

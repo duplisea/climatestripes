@@ -14,6 +14,7 @@ climate.col.stripes.f(
   text.col.legend = "yellow",
   na.colour = "white",
   n.categories.legend = 500,
+  legend.xpos = c(NA, NA),
   ...
 )
 }
@@ -34,7 +35,9 @@ climate.col.stripes.f(
 
 \item{na.colour}{colour to display for na in the time series}
 
-\item{n.categories.legend}{the number of colour categories you want to show in the legend, default=500 (large numbers smooth it)}
+\item{n.categories.legend}{the number of colour categories you want to show in the legend, default=500 (large numbers smooth it). Careful trying to make only a few discrete categories, you can get some peculiar looking legends.}
+
+\item{legend.xpos}{the left and right x coordinates of the legend bar (same units as your time axis)}
 
 \item{...}{additional arguments that plot will accept, see par}
 }
