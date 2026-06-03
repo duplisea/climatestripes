@@ -8,7 +8,7 @@ superimpose.data.f(
   time.vector,
   temperature.vector,
   data.colour = "yellow",
-  spline = T,
+  spline = TRUE,
   spline.colour = "white",
   ...
 )

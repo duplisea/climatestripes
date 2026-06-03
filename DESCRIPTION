@@ -1,15 +1,22 @@
 Package: climatestripes
 Type: Package
-Title: A simple visual depiction of a temperature variable and in most cases climate change
-Version: 1.0
+Title: A Simple Visual Depiction of a Temperature Variable and Climate Change
+Version: 1.1
 Author: Daniel E. Duplisea
 Maintainer: Daniel Duplisea <daniel.duplisea@dfo-mpo.gc.ca>
-Description: Climate stripes plots
+Description: Climate stripes and rings plots for visualising temperature time series and climate change.
+    Stripes plots show temperature anomalies as coloured vertical bars over time. Rings plots show the
+    same information in a circular tree-ring style. Both support superimposed data and trend lines.
+    Includes tools for identifying structural breakpoints in the temperature trend.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Depends:
+    R (>= 4.0.0)
+Imports:
     mgcv,
     scales,
-    data.table
-RoxygenNote: 7.1.1
+    data.table,
+    plotrix,
+    segmented
+Config/roxygen2/version: 8.0.0

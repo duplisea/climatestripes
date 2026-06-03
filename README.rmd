@@ -6,8 +6,15 @@ output: md_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+##### Updates
+
+- First developed August 2019
+- Updated in 2021
+- Fixed break issues using Claude June 2026
+- Unlikely to be updated given availability of these graphs in other packages and the ease of making them via AI and ggplot
 
 ### What are Climate Stripes?
+
 Climate stripes are visualisations of climate change from a temperature time series (Climate Lab 2018). They are meant mostly as a communication tool to a lay public and can be grasped almost instantly. They were developed to have minimal annotation almost like a colour bar code. Legend and time axis options have been included here if one wants to convey a bit more information.
 
 
@@ -94,7 +101,8 @@ The axis has been omitted to bring out the general pattern and comparison betwee
 
 
 You can pull the latest global surface temperature data directly from the NASA GISS website using the very powerful <b>fread</b> function from data.table and the correct URL
-```{r nasagistemp}
+
+```{r nasagistemp, eval=FALSE}
 GISTEMP= as.data.frame(fread("https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv", na.strings="***"))
 time.vector= GISTEMP$Year
 monthcols= 2:13
@@ -107,6 +115,76 @@ for (i in monthcols){
   superimpose.data.f(time.vector=time.vector, temperature.vector=temperature.vector, 
     data.colour="yellow", spline=T, spline.colour="white",lwd=2)
 }
+```
+
+
+## Climate rings
+
+Climate rings show the same information as climate stripes but in a circular form, resembling tree
+rings. The most recent year is the outermost ring and the oldest year is at the centre, so the
+progression from cool (old) to warm (recent) reads naturally from inside to outside. To ensure
+the rings and a companion stripes plot share identical colour mapping, capture the colours returned
+invisibly by `climate.col.stripes.f` and pass them to `stripe.cols`.
+
+```{r rings-basic}
+time.vector <- sst$year
+temperature.vector <- sst$median
+title.name <- "Global annual median sea surface temperature anomalies (Hadley CRUT4)"
+
+# draw the stripes plot and capture the colours
+stripe.cols <- climate.col.stripes.f(
+  time.vector = time.vector,
+  temperature.vector = temperature.vector,
+  colour.vec = c("navyblue", "lightblue", "red", "darkred"),
+  title = title.name,
+  legend = TRUE,
+  text.col.legend = "black"
+)
+
+# draw the rings plot reusing the same colour mapping
+# most recent year is outermost, oldest year is at the centre
+climate.col.rings.f(
+  time.vector = time.vector,
+  temperature.vector = temperature.vector,
+  stripe.cols = stripe.cols,
+  colour.vec = c("navyblue", "lightblue", "red", "darkred"),
+  title = title.name,
+  legend = TRUE,
+  text.col.legend = "black"
+)
+```
+
+## Climate rings with a breakpoint
+
+A segmented (piecewise) linear regression can be fitted to the temperature series and the estimated
+breakpoint year superimposed on the rings plot as a dashed circle. This can highlight a structural
+change in the trend such as an acceleration of warming, for example the well-documented shift in
+global sea surface temperatures in the late 1970s. The breakpoint year is also printed to the
+console.
+
+```{r rings-breakpoint}
+time.vector <- sst$year
+temperature.vector <- sst$median
+title.name <- "Global annual median sea surface temperature anomalies (Hadley CRUT4)"
+
+# rings plot standalone, no companion stripes plot needed
+climate.col.rings.f(
+  time.vector = time.vector,
+  temperature.vector = temperature.vector,
+  colour.vec = c("navyblue", "lightblue", "red", "darkred"),
+  title = title.name,
+  legend = TRUE,
+  text.col.legend = "black"
+)
+
+# superimpose a dashed circle at the estimated structural breakpoint year
+rings.breakpoint.f(
+  time.vector = time.vector,
+  temperature.vector = temperature.vector,
+  border.colour = "yellow",
+  lty = 2,
+  lwd = 5
+)
 ```
 
 

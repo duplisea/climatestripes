@@ -11,7 +11,7 @@ colour.gradient.legend.f(
   ytop,
   colour.vec = c("blue", "red"),
   ncolours = 500,
-  labels = T,
+  labels = TRUE,
   var.min.label,
   var.max.label,
   text.col.legend
